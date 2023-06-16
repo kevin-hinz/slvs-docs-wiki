@@ -26,7 +26,7 @@ SonarLint for Visual Studio only supports git and the git branch name with regar
 #### Step 1 
 In Visual Studio, go to **Extensions** > **SonarLint** > **Connected mode** and select **Bind to SonarQube or SonarCloud…**, this will open the **SonarQube Connections** tab.
 
-[[images/ConnectedMode/CM_ConnectionSetup_v6_14.png|Connection Setup]]
+![Connection Setup](images/ConnectedMode/CM_ConnectionSetup_v6_14.png)
 
 **NOTE**: Although the tab reads SonarQube, it is used for connecting to both SonarQube and SonarCloud.
 
@@ -40,7 +40,7 @@ In the **SonarQube Server** field:
 * If you’re connecting to SonarQube: enter your SonarQube server address.
 * If you’re connecting to SonarCloud: enter your SonarCloud server URL that starts with `https://sonarcloud.io`
 
-[[images/ConnectedMode/CM_ConnectionDialogBox_v6_14.png|Connection Dialog Box]]
+![Connection Dialog Box](images/ConnectedMode/CM_ConnectionDialogBox_v6_14.png)
 
 #### Step 4 
 In the **Username/Token** field, enter a [SonarQube](https://docs.sonarqube.org/latest/user-guide/user-account/generating-and-using-tokens/) or [SonarCloud](https://docs.sonarcloud.io/advanced-setup/user-accounts/#user-tokens) user token and leave the **Password** field blank

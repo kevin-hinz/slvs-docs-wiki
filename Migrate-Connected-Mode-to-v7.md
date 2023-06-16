@@ -13,7 +13,7 @@ When you open a solution that is bound using the old model, SonarLint will displ
 
 Before starting the wizard, it is **_highly recommended_** that you begin in a clean state. For example, you should have no unsaved files, and no uncommitted changes to files under source control before starting the migration.
 
-![Migrate configuration](images/MigrateToV7/migrate-connected-mode-configuration.PNG)
+![Migrate configuration](images/MigrateToV7/migrate-connected-mode-configuration_v7_0.PNG)
 
 Select **Migrate configuration** to start the Connected Mode migration wizard. The wizard will do the following:
 
