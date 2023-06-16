@@ -1,3 +1,8 @@
+From version 7.0, SonarLint for Visual Studio improved the Connected Mode setup. This means that SonarLint no longer saves its `.ruleset` and `SonarLint.xml` files inside C# or VB.NET solution directories; if you’re using the latest version of SonarLint, this page is no longer relevant.
+
+If you’re using SonarLint for Visual Studio v6.16 or earlier, please use the binding instructions below to set up your C# and VB.NET solution folders correctly.
+
+
 # What configuration does SLVS add to my C#/VB.NET projects when binding to a SonarQube/SonarCloud server?
 
 When binding to SonarQube/SonarCloud, SLVS generates configuration files that are needed for Sonar C# and Sonar VB.NET analyzers. 

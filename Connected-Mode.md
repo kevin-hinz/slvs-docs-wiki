@@ -53,7 +53,7 @@ Click **Connect** to set up the connection.
 
 The SonarQube tab now displays your projects; you will also see your organization if you are connected to SonarCloud.
 
-[[images/ConnectedMode/CM_ListProjects_v6_14.png|List Available Projects]]
+![List Available Projects](images/ConnectedMode/CM_ListProjects_v6_14.png)
 
 # Extended Rule descriptions
 From v6.14 and newer, Extended rule descriptions written in SonarQube or SonarCloud are available in the **Sonar Rule Help** view container. Because they are written SonarQube or SonarCloud, you must be viewing your project while in Connected Mode.
@@ -63,49 +63,50 @@ From v6.14 and newer, Extended rule descriptions written in SonarQube or SonarCl
 
 In your SonarQube or SonarCloud instance, go to the Rule you want to edit in the **Rules** tab, then click the **Extend Description** button to open a field box that will accept your Markdown-formatted text. What you add to the rule from your SonarQube or SonarCloud server will be seen in user’s instance of Visual Studio.
 
-[[images/ConnectedMode/CM_ExtendedRuleDescription_v6_14.png|Extended Rule Descriptions]]
+![Extended Rule Descriptions](images/ConnectedMode/CM_ExtendedRuleDescription_v6_14.png)
 
 # Project binding
 When you bind a project, SonarLint uses the Quality Profile defined on the server to decide which rules to run locally, and which rule parameters to use. When you mark a particular issue as “safe” or “won’t fix” on the server, the corresponding issue will be ignored in the IDE. Check the [SonarQube](https://docs.sonarqube.org/latest/instance-administration/quality-profiles/) or [SonarCloud](https://docs.sonarcloud.io/standards/managing-quality-profiles/) documentation for details about managing your quality profile. 
 
+The Connected Mode binding settings are written under %AppData%\Roaming\SonarLint for Visual Studio\Bindings. Each bound solution will have its own folder.
+
+To bind a project, go to Visual Studio **Team Explorer** > _Your SonarQube instance_ and double-click the project you want to bind; alternatively, you can right-click on your project and select **Bind**.To unbind a project, see the [instructions below](#unbinding-a-project).
+
 To bind a project, go to the **Team Explorer** > *Your SonarQube instance* and double-click the project you want to bind; alternatively, you can right-click on your project and select **Bind**.
 
-[[images/ConnectedMode/CM_BindProject_v6_14.png|Bind Your Project]]
+![Bind Your Project](images/ConnectedMode/CM_BindProject_v6_14.png)
 
-SonarLint then fetches the required settings from the server and creates local configuration files.
+SonarLint automatically fetches the required settings from the server and creates local configuration files. To manually trigger an update, go to Visual Studio **Team Explorer** > **SonarQube**, right-click the project whose binding you want to update, and select **Update**.
 
-## Synchronizing with the server
-The local Connected Mode configuration files can sometimes get out of step with settings on the SonarQube or SonarCloud servers for example, when a quality profile for the project is changed (on the server).
+## Synchronization with the server
 
-When you open a bound solution in Visual Studio, SonarLint automatically checks if the server configuration has changed. If that’s the case, SonarLint will prompt you to update the local configuration.
+## Local settings
 
-[[images/ConnectedMode/CM_BindingUpdateMessage_v6_14.png|Bing Update Message]]
+When you open a bound solution in Visual Studio, SonarLint automatically checks if the server configuration has changed. While you code, SonarLint supports near-real time sync of suppressed issues; in this way, issue statuses and quality profile changes made on the server are automatically updated in your local environment.
 
-## Updating a binding
-In most cases, there should be no need to trigger a manual update on your Connected Mode binding to sync suppressed issues. However, changes made to the quality profile on the server will affect local files on your disc and those files might be under source control. Therefore, to sync changes from your quality profile, the Connected Mode binding must be updated from time to time. 
+If you are running SonarLint for Visual Studio v6.16 or earlier, please see the Previous versions page for information about server synchroniyation was managed.
 
-To manually trigger an update to your Connected Mode binding, go **Team Explorer** > **SonarQube**, right-click the project whose binding you want to update, and click **Update**:
+### Types of updates
 
-[[images/ConnectedMode/CM_Update_Connection_v6_14.png|Update Connection Binding]]
+#### **Quality Profiles**
 
+Quality profiles are a key part of using SonarLint in Connected Mode with [SonarQube](https://docs.sonarqube.org/latest/instance-administration/quality-profiles/) or [SonarCloud](https://docs.sonarcloud.io/standards/managing-quality-profiles/). SonarLint periodically syncs the project’s quality profile from the server and applies its set of [rules](https://rules.sonarsource.com/) during code analysis.  \
 
-The following cases require a binding update to keep the SonarLint configuration in sync with SonarQube or SonarCloud. 
+#### **Suppressed issues**
 
-
-# Retrieving suppressed issues from the server
 As mentioned above, it is rare that you will need to manually retrieve suppressed issues from the server because SonarLint automatically fetches them when the bound solution is opened. From v6.14, SonarLint supports near-real-time sync of suppressed issues; note that previous releases periodically check for updates every 10 minutes, when a bound solution is opened, or the git branch changes in the IDE.
 
-Issue suppressions are reapplied automatically. 
+Issue suppressions are reapplied automatically.
 
-**NOTE**: A suppressed issue might still appear in Visual Studio if the code is different from when it was analyzed on SonarQube/SonarCloud.
+NOTE: A suppressed issue might still appear in Visual Studio if the code is different from when it was analyzed on SonarQube/SonarCloud.
 
-# Retrieving file exclusions from the server
+#### **File exclusions**
 
-SonarLint fetches file exclusions when you bind a project or update a binding, and saves them to a file named `sonar.settings.json` in the local `.sonarlint` folder. For more information about how this is handled by the server, check the [SonarQube](https://docs.sonarqube.org/latest/project-administration/narrowing-the-focus/) or [SonarCloud](https://docs.sonarcloud.io/advanced-setup/analysis-scope/) documentation about setting your analysis scope.
+SonarLint fetches file exclusions from the SonarQube or SonarCloud server when you bind a project or update a binding, and saves them to a file named sonar.settings.json. For more information about how the SonarLint settings are handled by the server, see the [SonarQube](https://docs.sonarqube.org/latest/project-administration/narrowing-the-focus/) or [SonarCloud](https://docs.sonarcloud.io/advanced-setup/analysis-scope/) documentation on setting your analysis scope.
 
-[[images/ConnectedMode/CM_SupportedExclusionPatterns.png|Supported Exclusion Patterns]]
+Note that in In SonarLint for Visual Studio 7.0, the settings file was moved outside of the solution directory; please check the [Legacy connected mode](#legacy-connected-mode) article below for information about the settings file in versions 6.16 and older.
 
-You must **Update** your binding to refresh the `sonar.setting.json` file with exclusions defined in the server UI.
+![Supported Exclusion Patterns](images/ConnectedMode/CM_SupportedExclusionPatterns.png)
 
 Known limitations for file exclusions:
 
@@ -114,12 +115,17 @@ Known limitations for file exclusions:
 * Multicriteria and Test exclusions are not supported. SonarLint for Visual Studio only supports Global Source File Exclusions, Source File Exclusions, and Source File Inclusions when setting the analysis scope. See the pages about file inclusion and exclusion on [SonarQube](https://docs.sonarqube.org/latest/project-administration/narrowing-the-focus/#file-exclusion-and-inclusion) and [Sonarcloud](https://docs.sonarcloud.io/advanced-setup/analysis-scope/#file-exclusion-and-inclusion) in their documentation.
 
 # Unbinding a project
-It is not possible to unbind a project from the Visual Studio UI. See these instructions to remove a solution from Connected Mode:
+It is not possible to unbind a project from the Visual Studio UI however, this feature is on the Team's backlog. Nevertheless, it is possible to manually remove a solution from Connected Mode:
 
-* For all languages except C# and VB: delete the .sonarlint folder that is located at the solution level.
-* For C# and VB projects: additional steps are required. Because these languages use Visual Studio’s ruleset mechanism, binding a project modifies the project files, so you’ll need to remove the lines added when you bound the project. See [the special configuration details here](https://github.com/SonarSource/sonarlint-visualstudio/wiki/Connected-Mode-configuration-for--C%23-and-Visual-Basic-projects).
+* Delete the bindings folder associated with your project: Each bound solution will have a separate folder under that is located in the \%AppData%\SonarLint for Visual Studio\Bindings folder; delete the associated project folder.
 
 # Legacy connected mode
+
+Before SonarLint for Visual Studio version 7.0 (released in June 2023), Connected Mode behaved a bit differently:
+
+* In versions 6.16 and earlier, SonarLint saved all of its configuration files *inside the solution project folder*, and it was up to the user to commit or exclude the Sonar settings. This caused some version control management problems, especially when syncing with the server in Connected Mode. Please check the [Previous versions](https://github.com/SonarSource/sonarlint-visualstudio/wiki/Previous-versions) page for important details when running in Connected Mode.
+* From version 7.0 and newer, the settings folder was moved outside of the solution directory to the %AppData%\Roaming\SonarLint for Visual Studio\Bindings folder.
+
 Before SonarLint for Visual Studio version 4.0 (released in May 2018), Connected Mode behaved a bit differently:
 * The appropriate NuGet package for the `SonarAnalyzer.CSharp/SonarAnalyzer.VisualBasic` analyzers were added to each project.
 * The Connected Mode settings were saved in a solution-level folder called SonarQube in a file called `SolutionBinding.sqconfig`.
