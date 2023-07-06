@@ -52,9 +52,12 @@ If you are using Team Foundation Version Control **and** have C# or VB.NET proje
 
 As described above, the settings files are no longer written to a source-controlled location. Instead, they are written under the per-user roaming folder (`%APPDATA%\SonarLint for Visual Studio`). However, the projects still need to reference the settings files that configure the Roslyn-based Sonar C# and VB.NET rules.
 
-Tfvc will detect that these files are being referenced and may pop up one or more dialogs like the one below warning that files outside the workspace are being referenced and asking for confirmation that this is ok:
-[TODO image]
+Tfvc will detect that these files are being referenced and may pop up one or more dialogs like the one below warning that files outside the workspace are being referenced and asking for confirmation that this is ok. Click `Add the item` to dismiss the dialog.
 
-It is possible that the Visual Studio dialogs will appear behind the migration wizard dialog. In that case, you might need to dismiss the wizard dialog before the Visual Studio dialogs can be closed. The wizard dialog can be closed by the `Enter` or `Escape` keys, or using the mouse.
+![Tfvc confirmation dialog](images/MigrateToV7/migrate-connected-mode-tfvc_single_vs_dialog_v7_0.png)
+
+It is possible that multiple Visual Studio dialogs will appear, or that they will appear behind the migration wizard dialog. In that case, you might need to dismiss the wizard dialog before the Visual Studio dialogs can be closed. The wizard dialog can be closed by the `Enter` or `Escape` keys, or using the mouse.
+
+![Tfvc confirmation dialog](images/MigrateToV7/migrate-connected-mode-tfvc_multiple_overlaid_vs_dialogs_v7_0.png)
 
 Once you have dismissed the Tfvc dialogs they should not appear again.
