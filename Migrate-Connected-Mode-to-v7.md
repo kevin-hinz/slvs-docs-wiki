@@ -46,3 +46,15 @@ To manually remove the setting, you will need to:
 Once complete, commit the change to source control to complete the process.
 
 If you have problems with the migration, please open a thread in the [Visual Studio Community Forum](https://community.sonarsource.com/tags/c/sl/visual-studio/35/connected_mode) and tag it with the tags `connected_mode` and `migration`.
+
+# Additional notes for Tfvc users
+If you are using Team Foundation Version Control **and** have C# or VB.NET projects in your solution it is possible that you will see some additional dialogs from Tfvc appearing when the migration finishes. If your solution does not contain C# or VB.NET projects you can disregard the rest of this section.
+
+As described above, the settings files are no longer written to a source-controlled location. Instead, they are written under the per-user roaming folder (`%APPDATA%\SonarLint for Visual Studio`). However, the projects still need to reference the settings files that configure the Roslyn-based Sonar C# and VB.NET rules.
+
+Tfvc will detect that these files are being referenced and may pop up one or more dialogs like the one below warning that files outside the workspace are being referenced and asking for confirmation that this is ok:
+[TODO image]
+
+It is possible that the Visual Studio dialogs will appear behind the migration wizard dialog. In that case, you might need to dismiss the wizard dialog before the Visual Studio dialogs can be closed. The wizard dialog can be closed by the `Enter` or `Escape` keys, or using the mouse.
+
+Once you have dismissed the Tfvc dialogs they should not appear again.
