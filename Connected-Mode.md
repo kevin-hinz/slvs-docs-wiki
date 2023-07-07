@@ -61,7 +61,7 @@ From v6.14 and newer, Extended rule descriptions written in SonarQube or SonarCl
 * You can extend rule descriptions in [SonarQube](https://docs.sonarqube.org/latest/user-guide/rules/overview/#rule-details) and [SonarCloud](https://docs.sonarcloud.io/digging-deeper/rules/#rule-details) to let users know how your organization uses a particular rule or give more insight into a rule.
 * Note that the extension will be available to non-admin users as a normal part of the rule details.
 
-In your SonarQube or SonarCloud instance, go to the Rule you want to edit in the **Rules** tab, then click the **Extend Description** button to open a field box that will accept your Markdown-formatted text. What you add to the rule from your SonarQube or SonarCloud server will be seen in user’s instance of Visual Studio.
+In your SonarQube or SonarCloud instance, go to the Rule you want to edit in the **Rules** tab, then click the **Extend Description** button to open a field box that will accept your Markdown-formatted text. What you add to the rule from your SonarQube or SonarCloud server will be seen in the user’s instance of Visual Studio.
 
 ![Extended Rule Descriptions](images/ConnectedMode/CM_ExtendedRuleDescription_v6_14.png)
 
@@ -83,7 +83,7 @@ If you are using Team Foundation Version Control **and** have C# or VB.NET proje
 
 Tfvc might pop up one or more dialogs like the one below warning that files outside the workspace are being referenced and asking for confirmation that this is ok. These files are used to configure analysis for C# and VB.NET, and do not need to be under source control. Click `Add the item` to dismiss the dialog.
 
-![Tfvc confirmation dialog](images/MigrateToV7/migrate-connected-mode-tfvc_single_vs_dialog_v7_0.png)
+![Tfvc confirmation dialog](images/ConnectedMode/CM_BindProject_TfvcPopups_v7_0.png)
 
 Once you have dismissed the Tfvc dialogs they should not appear again.
 
