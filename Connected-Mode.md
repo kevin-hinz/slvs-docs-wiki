@@ -78,6 +78,15 @@ To bind a project, go to the **Team Explorer** > *Your SonarQube instance* and d
 
 SonarLint automatically fetches the required settings from the server and creates local configuration files. To manually trigger an update, go to Visual Studio **Team Explorer** > **SonarQube**, right-click the project whose binding you want to update, and select **Update**.
 
+## Additional notes for Tfvc users
+If you are using Team Foundation Version Control **and** have C# or VB.NET projects in your solution it is possible that you will see some additional dialogs from Tfvc appearing when binding finishes. If your solution does not contain C# or VB.NET projects you can disregard the rest of this section.
+
+Tfvc might pop up one or more dialogs like the one below warning that files outside the workspace are being referenced and asking for confirmation that this is ok. These files are used to configure analysis for C# and VB.NET, and do not need to be under source control. Click `Add the item` to dismiss the dialog.
+
+![Tfvc confirmation dialog](images/MigrateToV7/migrate-connected-mode-tfvc_single_vs_dialog_v7_0.png)
+
+Once you have dismissed the Tfvc dialogs they should not appear again.
+
 ## Synchronization with the server
 
 ## Local settings
