@@ -3,11 +3,13 @@ SonarLint for Visual Studio 7.0+ no longer stores the Connected Mode settings fi
 This makes binding a solution for the first time much simpler because no source-controlled files will be modified. However, any solutions that were bound using the old configuration model will need to have their configuration settings migrated to the new model.
 
 ## Migration is required to re-enable Connected Mode features
- Any features that require a connection to the Sonar server will not be available until you have migrated to the new model, including the following:
+Any features that require a connection to the Sonar server will not be available until you have migrated to the new model, including the following:
 * issues suppressed on the server will not be suppressed in the IDE
 * changes to Quality Profiles will not be synchronized to the IDE
 * taint issues reported on the server will not be shown in the IDE
-  
+
+Analysis will still be performed using the using old-style analysis configuration that is part of the solution (but without suppressions).
+
 # Automating the migration process
 
 To help automate the migration process, SonarLint for Visual Studio 7.0 provides a migration wizard. 
