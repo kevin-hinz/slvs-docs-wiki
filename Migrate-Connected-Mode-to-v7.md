@@ -1,11 +1,24 @@
 SonarLint for Visual Studio 7.0+ no longer stores the Connected Mode settings files in a location that could be under source control, and no longer modifies C# and VB.NET project files to configure the analysis rules.
 
-This makes binding a solution for the first time much simpler, because no source-controlled files will be modified. However, any solutions that were bound using the old configuration model will need to have their configuration settings migrated to the new model. To help automate the migration process, SonarLint for Visual Studio 7.0 integrates a migration wizard. 
+This makes binding a solution for the first time much simpler because no source-controlled files will be modified. However, any solutions that were bound using the old configuration model will need to have their configuration settings migrated to the new model.
+
+## Migration is required to re-enable Connected Mode features
+Any features that require a connection to the Sonar server will not be available until you have migrated to the new model, including the following:
+* issues suppressed on the server will not be suppressed in the IDE
+* changes to Quality Profiles will not be synchronized to the IDE
+* taint issues reported on the server will not be shown in the IDE
+
+Analysis will still be performed using the using old-style analysis configuration that is part of the solution (but without suppressions).
+
+# Automating the migration process
+
+To help automate the migration process, SonarLint for Visual Studio 7.0 provides a migration wizard. 
 
 * If you did not customize your binding settings in earlier versions, the wizard should be able to complete the migration without error.
-* If you did customize your binding settings, you might need to uncustomize your changes. 
+* If you did customize your binding settings, you might need to manually undo your changes. 
 
 It is recommended to first run the wizard; once completed, SonarLint will announce whether or not the migration was successful. Please check the [instructions below](#if-the-wizard-cannot-make-changes-automatically) about what to do with the wizard logs if there is an error.
+
 
 # Using the migration wizard
 
@@ -46,3 +59,18 @@ To manually remove the setting, you will need to:
 Once complete, commit the change to source control to complete the process.
 
 If you have problems with the migration, please open a thread in the [Visual Studio Community Forum](https://community.sonarsource.com/tags/c/sl/visual-studio/35/connected_mode) and tag it with the tags `connected_mode` and `migration`.
+
+# Additional notes for Tfvc users
+If you are using Team Foundation Version Control **and** have C# or VB.NET projects in your solution it is possible that you will see some additional dialogs from Tfvc appearing when the migration finishes. If your solution does not contain C# or VB.NET projects you can disregard the rest of this section.
+
+As described above, the settings files are no longer written to a source-controlled location. Instead, they are written under the per-user roaming folder (`%APPDATA%\SonarLint for Visual Studio`). However, the projects still need to reference the settings files that configure the Roslyn-based Sonar C# and VB.NET rules.
+
+Tfvc will detect that these files are being referenced and may pop up one or more dialogs like the one below warning that files outside the workspace are being referenced and asking for confirmation that this is ok. Click `Add the item` to dismiss the dialog.
+
+![Tfvc confirmation dialog](images/MigrateToV7/migrate-connected-mode-tfvc_single_vs_dialog_v7_0.png)
+
+It is possible that multiple Visual Studio dialogs will appear, or that they will appear behind the migration wizard dialog. In that case, you might need to dismiss the wizard dialog before the Visual Studio dialogs can be closed. The wizard dialog can be closed by the `Enter` or `Escape` keys, or using the mouse.
+
+![Tfvc confirmation dialog](images/MigrateToV7/migrate-connected-mode-tfvc_multiple_overlaid_vs_dialogs_v7_0.png)
+
+Once you have dismissed the Tfvc dialogs they should not appear again.
